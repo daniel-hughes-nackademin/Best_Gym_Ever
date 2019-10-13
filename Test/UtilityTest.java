@@ -34,7 +34,5 @@ class UtilityTest {
         List<Customer> nullList = new ArrayList<>();
         assertTrue(Utility.getCustomerListAsString(nullList).equals(""));
         assertFalse(Utility.getCustomerListAsString(nullList) == null);
-
-
     }
 }

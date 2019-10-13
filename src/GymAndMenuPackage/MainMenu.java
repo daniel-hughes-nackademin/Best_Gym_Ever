@@ -31,7 +31,7 @@ public class MainMenu {
     public static void mainMenu(BestGymEver bestGymEver) {
 
         //WHY DOES IT NOT UPDATE FAST ENOUGH?!?!?!?!?!
-        windowMain.refreshFrame();
+        //windowMain.refreshFrame();
 
         //Update the list, create list if empty
         bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
@@ -40,7 +40,7 @@ public class MainMenu {
         Object choice = showInputDialog(windowMain, "Vad vill du göra?", "Best Gym Ever - Customer Management Software",
                 QUESTION_MESSAGE, null, options, options[0]);
         if (choice == null) {
-            int answer = showConfirmDialog(windowMain, "Är du säker på att du vill avsluta?", dialogTitle, WARNING_MESSAGE);
+            int answer = showConfirmDialog(windowMain, "Är du säker på att du vill avsluta?", dialogTitle, OK_CANCEL_OPTION, WARNING_MESSAGE);
             if (answer == YES_OPTION) {
                 System.exit(0);
             } else mainMenu(bestGymEver); //restart mainMenu()

@@ -23,8 +23,11 @@ public class CustomerSearchMenu {
             if (searchInput == null) {
                 MainMenu.mainMenu(bestGymEver);
             }
+            else{
+                searchInput = searchInput.trim();
+            }
 
-            searchInput = searchInput.trim();
+
 
             //Verifying searchInput to correct format
             if (!Utility.validatedSearchInput(searchInput)){

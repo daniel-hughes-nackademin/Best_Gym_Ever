@@ -40,7 +40,7 @@ public class ActionListenerFrame extends JFrame implements ActionListener {
     public void displayRegistryMenu(){
 
         JPanel flowPanelButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JPanel gridPanel = new JPanel(new GridLayout(5,0));
+        JPanel gridPanel = new JPanel(new GridLayout(5,1));
         gridPanel.setBackground(Color.BLACK);
 
         JLabel buttonHeader = new JLabel("Sortera Efter:", JLabel.CENTER);
@@ -98,7 +98,8 @@ public class ActionListenerFrame extends JFrame implements ActionListener {
 
     public void refreshFrame(){
         this.jLayeredPane.removeAll();
-        this.jLayeredPane.validate();
+        this.jLayeredPane.revalidate();
+        this.jLayeredPane.repaint();
         ImagePanel imagePanel = new ImagePanel(new ImageIcon(bestGymEver.getFilePathBackgroundImage()).getImage());
         this.jLayeredPane.add(imagePanel, 0);
     }
@@ -121,6 +122,7 @@ public class ActionListenerFrame extends JFrame implements ActionListener {
         if (e.getSource() == jButtonList.get(4)){
             //jButtonList.get(4).setVisible(false);
 
+            this.refreshFrame();
             /*this.jLayeredPane.removeAll();
             this.jLayeredPane.revalidate();
             ImagePanel imagePanel = new ImagePanel(new ImageIcon(bestGymEver.getFilePathBackgroundImage()).getImage());
