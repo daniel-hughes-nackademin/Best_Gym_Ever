@@ -7,8 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 
-import static GymAndMenuPackage.MainMenu.dialogTitle;
-import static GymAndMenuPackage.MainMenu.mainMenu;
+import static GymAndMenuPackage.MainMenu.*;
 import static javax.swing.JOptionPane.*;
 
 public class CustomerMembershipRegistration {
@@ -38,7 +37,7 @@ public class CustomerMembershipRegistration {
         signUpPanel.add(textFieldPersonalID);
 
 
-        int choice = showConfirmDialog(bestGymEver.windowMain, signUpPanel, registrationTitle, OK_CANCEL_OPTION);
+        int choice = showConfirmDialog(windowMain, signUpPanel, registrationTitle, OK_CANCEL_OPTION);
 
         String inputName = textFieldName.getText();
         String inputPersonalID = textFieldPersonalID.getText();
@@ -53,11 +52,11 @@ public class CustomerMembershipRegistration {
                 customer.setActiveMember(true);
                 bestGymEver.getCustomerList().add(customer);
                 Utility.addCustomerToFile(customer, bestGymEver.getFilePathUpdatedCustomers());
-                showMessageDialog(bestGymEver.windowMain, customer.getName() + " är nu registrerad som medlem", registrationTitle, INFORMATION_MESSAGE);
+                showMessageDialog(windowMain, customer.getName() + " är nu registrerad som medlem", registrationTitle, INFORMATION_MESSAGE);
                 mainMenu(bestGymEver);
             } else {
                 //If format is invalid
-                showMessageDialog(bestGymEver.windowMain, "Felaktigt Format!", registrationTitle, WARNING_MESSAGE);
+                showMessageDialog(windowMain, "Felaktigt Format!", registrationTitle, WARNING_MESSAGE);
                 registerNewCustomerViaUserInput(bestGymEver);
             }
         } else

@@ -1,19 +1,25 @@
 package GymAndMenuPackage;
 
-import CustomerPackage.Customer;
+import UtilityPackage.ActionListenerFrame;
+import UtilityPackage.ImagePanel;
 import UtilityPackage.Utility;
 
-import java.util.List;
+import javax.swing.*;
 
 import static javax.swing.JOptionPane.*;
 
 public class MainMenu {
 
+    protected static ActionListenerFrame windowMain;
+
     protected static final String dialogTitle = "Best Gym Ever - Kundregister";
 
     public static void main(String[] args) {
-         BestGymEver bestGymEver = new BestGymEver();
-         mainMenu(bestGymEver);
+        BestGymEver bestGymEver = new BestGymEver();
+
+        //Creating the frame for the program
+        windowMain = new ActionListenerFrame(bestGymEver);
+        mainMenu(bestGymEver);
 
         //RUN MINIMUM 3 TESTS IN TEST CLASSES!!!
 
@@ -23,14 +29,18 @@ public class MainMenu {
 
     //The main menu for the Best Gym Ever Application
     public static void mainMenu(BestGymEver bestGymEver) {
+
+        //WHY DOES IT NOT UPDATE FAST ENOUGH?!?!?!?!?!
+        windowMain.refreshFrame();
+
         //Update the list, create list if empty
         bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
 
         Object[] options = {"Sök efter kund i registret", "Visa kundregister", "Registrera ny kund"};
-        Object choice = showInputDialog(bestGymEver.windowMain, "Vad vill du göra?", "Best Gym Ever - Customer Management Software",
+        Object choice = showInputDialog(windowMain, "Vad vill du göra?", "Best Gym Ever - Customer Management Software",
                 QUESTION_MESSAGE, null, options, options[0]);
         if (choice == null) {
-            int answer = showConfirmDialog(bestGymEver.windowMain, "Är du säker på att du vill avsluta?", dialogTitle, WARNING_MESSAGE);
+            int answer = showConfirmDialog(windowMain, "Är du säker på att du vill avsluta?", dialogTitle, WARNING_MESSAGE);
             if (answer == YES_OPTION) {
                 System.exit(0);
             } else mainMenu(bestGymEver); //restart mainMenu()

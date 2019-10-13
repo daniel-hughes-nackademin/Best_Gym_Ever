@@ -10,8 +10,7 @@ import java.util.List;
 //The gym class. Each gym has a window, a list of customers and relevant file paths
 public class BestGymEver {
 
-    protected ActionListenerFrame windowMain = new ActionListenerFrame("Best Gym Ever - Seriously the best gym there is. Maybe.");
-    JLayeredPane jLayeredPane = new JLayeredPane();
+    protected String title = "Best Gym Ever - Seriously the best gym there is. Maybe.";
     private List<Customer> customerList;
 
 
@@ -21,31 +20,31 @@ public class BestGymEver {
     private final String filePathBackgroundImage = "src\\fileFolder\\Gym Picture.jpg";
 
     //gym constructor
-    public BestGymEver() {
+    public BestGymEver() {}
 
-        ImagePanel imagePanel = new ImagePanel(new ImageIcon(filePathBackgroundImage).getImage());
-        windowMain.add(jLayeredPane);
-        //windowMain.getContentPane().add(panel);
-        jLayeredPane.add(imagePanel, 0);
-        windowMain.setPreferredSize(new Dimension(1200, 800));
-        windowMain.pack();
-        windowMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        windowMain.setResizable(false);
-        windowMain.setVisible(true);
+    public BestGymEver(String title) {
+        this.title = title;
     }
-
 
     //SETTERS AND GETTERS BELOW
-    public JFrame getWindowMain() {
-        return windowMain;
-    }
-
     public void setCustomerList(List<Customer> customerList) {
         this.customerList = customerList;
     }
 
     public List<Customer> getCustomerList() {
         return customerList;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getFilePathBackgroundImage() {
+        return filePathBackgroundImage;
     }
 
     public String getFilePathOriginalCustomers() {
