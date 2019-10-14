@@ -23,16 +23,15 @@ class UtilityTest {
         bye.setCustomerList(Utility.getCustomerListFromFile(filePath));
 
         assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains("Bear Belle"));
-        assertEquals(Utility.getCustomerListAsString(bye.getCustomerList()), bye.getCustomerList().toString());
         assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(5).getName()));
         assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(5).getMembershipDate().toString()));
         assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(5).toString()));
-        assertFalse(Utility.getCustomerListAsString(bye.getCustomerList()).equals(null));
-        assertFalse(Utility.getCustomerListAsString(bye.getCustomerList()).equals(filePath));
+        assertNotEquals(null, Utility.getCustomerListAsString(bye.getCustomerList()));
+        assertNotEquals(Utility.getCustomerListAsString(bye.getCustomerList()), filePath);
         assertFalse(Utility.getCustomerListAsString(bye.getCustomerList()).contains("Ida Malmkvist"));
 
         List<Customer> nullList = new ArrayList<>();
-        assertTrue(Utility.getCustomerListAsString(nullList).equals(""));
-        assertFalse(Utility.getCustomerListAsString(nullList) == null);
+        assertEquals("", Utility.getCustomerListAsString(nullList));
+        assertNotNull(Utility.getCustomerListAsString(nullList));
     }
 }
