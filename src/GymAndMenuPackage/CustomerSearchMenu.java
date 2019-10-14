@@ -22,12 +22,9 @@ public class CustomerSearchMenu {
                                     "eller personnummer (ååmmddnnnn):", dialogTitle, PLAIN_MESSAGE);
             if (searchInput == null) {
                 MainMenu.mainMenu(bestGymEver);
+                break;
             }
-            else{
                 searchInput = searchInput.trim();
-            }
-
-
 
             //Verifying searchInput to correct format
             if (!Utility.validatedSearchInput(searchInput)){
@@ -39,10 +36,10 @@ public class CustomerSearchMenu {
             if (customer == null) {
                 showMessageDialog(windowMain, "\"" + searchInput + "\" finns inte med i registret!", dialogTitle, WARNING_MESSAGE);
                 //ASK IF WE SHOULD ADD CUSTOMER TO REGISTRY AS NEW ACTIVE MEMBER, SUGGEST searchInput as name
-
             } else {
                 showMessageDialog(windowMain, "Personen finns i registret:\n" + customer, dialogTitle, INFORMATION_MESSAGE);
                 runCustomerMenu(bestGymEver, customer);
+                break;
             }
         }
     }

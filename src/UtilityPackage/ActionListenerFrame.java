@@ -33,11 +33,12 @@ public class ActionListenerFrame extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
 
-        jButtonList = new ArrayList<>();
+
 
     }
 
     public void displayRegistryMenu(){
+
 
         JPanel flowPanelButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel gridPanel = new JPanel(new GridLayout(5,1));
@@ -48,25 +49,31 @@ public class ActionListenerFrame extends JFrame implements ActionListener {
         buttonHeader.setForeground(Color.WHITE);
         gridPanel.add(buttonHeader);
 
-        jButtonList.add(new JButton("Alfabetisk Ordning"));
-        jButtonList.get(0).addActionListener(this);
-        gridPanel.add(jButtonList.get(0));
+        this.jButtonList = new ArrayList<>();
+        this.jButtonList.clear();
+        this.jButtonList.add(new JButton("Alfabetisk Ordning"));
+        this.jButtonList.get(0).addActionListener(this);
+        //gridPanel.add(jButtonList.get(0));
 
-        jButtonList.add(new JButton("Registreringsdatum"));
-        jButtonList.get(1).addActionListener(this);
-        gridPanel.add(jButtonList.get(1));
+        this.jButtonList.add(new JButton("Registreringsdatum"));
+        this.jButtonList.get(1).addActionListener(this);
+        //gridPanel.add(jButtonList.get(1));
 
-        jButtonList.add(new JButton("Visa Aktiva Medlemmar"));
-        jButtonList.get(2).addActionListener(this);
-        gridPanel.add(jButtonList.get(2));
+        this.jButtonList.add(new JButton("Visa Aktiva Medlemmar"));
+        this.jButtonList.get(2).addActionListener(this);
+        //gridPanel.add(jButtonList.get(2));
 
-        jButtonList.add(new JButton("Visa Inaktiva Medlemmar"));
-        jButtonList.get(3).addActionListener(this);
-        gridPanel.add(jButtonList.get(3));
+        this.jButtonList.add(new JButton("Visa Inaktiva Medlemmar"));
+        this.jButtonList.get(3).addActionListener(this);
+        //gridPanel.add(jButtonList.get(3));
 
-        jButtonList.add(new JButton("Huvudmeny"));
-        jButtonList.get(4).addActionListener(this);
-        gridPanel.add(jButtonList.get(4));
+        for (JButton jButton : jButtonList) {
+            gridPanel.add(jButton);
+        }
+
+        this.jButtonList.add(new JButton("Huvudmeny"));
+        this.jButtonList.get(4).addActionListener(this);
+        gridPanel.add(this.jButtonList.get(4));
 
 
         flowPanelButtons.setBounds(230,320, 190, 140);
@@ -81,8 +88,8 @@ public class ActionListenerFrame extends JFrame implements ActionListener {
         displayCustomerListInScrollableWindow(bestGymEver);
 
         //Adding menu button
-        this.getLayeredPane().add(jButtonList.get(4),3);
-        jButtonList.get(4).setBounds(600, 650, 100, 100);
+        this.getLayeredPane().add(this.jButtonList.get(4),3);
+        this.jButtonList.get(4).setBounds(600, 650, 100, 100);
     }
 
     private void displayCustomerListInScrollableWindow(BestGymEver bestGymEver){

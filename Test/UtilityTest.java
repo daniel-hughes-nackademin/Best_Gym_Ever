@@ -22,8 +22,8 @@ class UtilityTest {
         String filePath = "Test\\testFileFolder\\customersTest.txt";
         bye.setCustomerList(Utility.getCustomerListFromFile(filePath));
 
-        assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(0).getName()));
-        assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(0).getPersonalID()));
+        assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains("Bear Belle"));
+        assertEquals(Utility.getCustomerListAsString(bye.getCustomerList()), bye.getCustomerList().toString());
         assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(5).getName()));
         assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(5).getMembershipDate().toString()));
         assertTrue(Utility.getCustomerListAsString(bye.getCustomerList()).contains(bye.getCustomerList().get(5).toString()));
