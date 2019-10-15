@@ -83,6 +83,26 @@ class UtilityTest {
 
         assertNotEquals(customerList.get(11).getMembershipDate(), testPerson2.getMembershipDate());
 
+
+        customerList = Utility.getCustomerListFromFile("Test\\testFileFolder\\Testnumber2.txt");
+
+        Customer testPerson3 = new Customer();
+        testPerson3.setName("Galna Pantern");
+        testPerson3.setPersonalID("1212125567");
+        testPerson3.setMembershipDate(LocalDate.of(1846, 2, 28));
+
+        Customer testPerson4 = new Customer();
+        testPerson4.setName("Master Yoda");
+        testPerson4.setPersonalID("8910111234");
+        testPerson4.setMembershipDate(LocalDate.of(2019, 10, 15));
+
+        assertEquals(testPerson3.getName(), customerList.get(customerList.size() - 1).getName());
+        assertEquals(testPerson3.getPersonalID(), customerList.get(customerList.size() - 1).getPersonalID());
+        assertEquals(testPerson3.getMembershipDate(), customerList.get(customerList.size() - 1).getMembershipDate());
+
+        assertEquals(testPerson4.getName(), customerList.get(2).getName());
+        assertEquals(testPerson4.getPersonalID(), customerList.get(2).getPersonalID());
+        assertEquals(testPerson4.getMembershipDate(), customerList.get(2).getMembershipDate());
     }
 
     @Test
