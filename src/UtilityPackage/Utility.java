@@ -6,9 +6,11 @@ import CustomerPackage.Customer;
 
 import javax.swing.*;
 import java.io.*;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,9 +77,9 @@ public class Utility {
     public static Customer getCustomerFromList(List<Customer> customerList, String searchInput) {
         Customer customer = null;
 
-        for (Customer member : customerList) {
-            if (searchInput.equalsIgnoreCase(member.getName()) || searchInput.equals(member.getPersonalID())) {
-                customer = member;
+        for (Customer person : customerList) {
+            if (searchInput.equalsIgnoreCase(person.getName()) || searchInput.equals(person.getPersonalID())) {
+                customer = person;
             }
         }
         return customer;
@@ -134,17 +136,25 @@ public class Utility {
 
 
     //PRESENTATION METHODS
+    public static String formatStringToFirstLastName(String fullName){
+        String first = fullName.substring(0,1).toUpperCase() + fullName.substring(1, fullName.indexOf(' ')).toLowerCase();
+        String last = fullName.substring(fullName.indexOf(' ')+1, fullName.indexOf(' ')+2).toUpperCase() +
+                fullName.substring(fullName.indexOf(' ')+2).toLowerCase();
+        return first + ' ' + last;
+    }
+
+
     //Returns String presentation of the input customer list
     public static String getCustomerListAsString(List<Customer> customerList) {
         StringBuilder list = new StringBuilder();
         for (Customer customer : customerList) {
-            list.append(customer + "\n");
+            list.append(customer).append("\n");
         }
         return list.toString();
     }
 
     //Returns a JScrollPane with the input customer list
-    public static JScrollPane getCustomerListInJScrollPane(BestGymEver bestGymEver, List<Customer> customerList) {
+    public static JScrollPane getCustomerListInJScrollPane(List<Customer> customerList) {
         JTextArea textArea = new JTextArea(25, 0);
         textArea.setText(getCustomerListAsString(customerList));
         textArea.setEditable(false);
@@ -172,6 +182,7 @@ public class Utility {
         if (isDigitsOnly(searchInput) && searchInput.length() == 10)
             isCorrectPersonalIDFormat = true;
 
+
         if (isCorrectNameFormat || isCorrectPersonalIDFormat)
             isCorrectFormat = true;
 
@@ -187,8 +198,16 @@ public class Utility {
         if (isLettersAndSpacesOnly(name) && numberOfSpaces(name) == 1)
             isCorrectNameFormat = true;
 
-        if (isDigitsOnly(personalID) && personalID.length() == 10)
-            isCorrectPersonalIDFormat = true;
+        if (isDigitsOnly(personalID) && personalID.length() == 10){
+            String date = "20" + personalID.substring(0,2) + '-' + personalID.substring(2,4) + '-' + personalID.substring(4,6);
+            try {
+                LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+                isCorrectPersonalIDFormat = true;
+            } catch (DateTimeParseException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         if (isCorrectNameFormat && isCorrectPersonalIDFormat)
             isCorrectFormat = true;
@@ -200,10 +219,12 @@ public class Utility {
     public static int numberOfSpaces(String inputText) {
         int spaces = 0;
 
-        for (int i = 0; i < inputText.length(); i++) {
-            char c = inputText.charAt(i);
-            if (c == ' ')
-                spaces++;
+        if (inputText != null) {
+            for (int i = 0; i < inputText.length(); i++) {
+                char c = inputText.charAt(i);
+                if (c == ' ')
+                    spaces++;
+            }
         }
         return spaces;
     }

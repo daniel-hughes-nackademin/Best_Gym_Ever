@@ -5,8 +5,7 @@ import CustomerPackage.Customer;
 
 import java.time.LocalDate;
 
-import static GymAndMenuPackage.MainMenu.dialogTitle;
-import static GymAndMenuPackage.MainMenu.windowMain;
+import static GymAndMenuPackage.MainMenu.*;
 import static javax.swing.JOptionPane.*;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
@@ -35,7 +34,6 @@ public class CustomerSearchMenu {
             Customer customer = Utility.getCustomerFromList(bestGymEver.getCustomerList(), searchInput);
             if (customer == null) {
                 showMessageDialog(windowMain, "\"" + searchInput + "\" finns inte med i registret!", dialogTitle, WARNING_MESSAGE);
-                //ASK IF WE SHOULD ADD CUSTOMER TO REGISTRY AS NEW ACTIVE MEMBER, SUGGEST searchInput as name
             } else {
                 showMessageDialog(windowMain, "Personen finns i registret:\n" + customer, dialogTitle, INFORMATION_MESSAGE);
                 runCustomerMenu(bestGymEver, customer);
@@ -49,13 +47,17 @@ public class CustomerSearchMenu {
             Object[] options = {"Träna på gymmet och logga i tränarens lista", "Se lista över kundens gympass"};
             Object choice = showInputDialog(windowMain, "Vad vill " + customer.getName() + " göra?", dialogTitle, PLAIN_MESSAGE, null, options, options[0]);
 
-            if (choice == options[0]) {
+            if (choice == null)
+                MainMenu.mainMenu(bestGymEver);
+            else if (choice == options[0]) {
                 Utility.addGymVisitToFile(customer, bestGymEver.getFilePathGymVisits());
                 showMessageDialog(windowMain, "Träningspass för " + customer.getName() + " är loggat i listan.", dialogTitle, INFORMATION_MESSAGE);
+                mainMenu(bestGymEver);
             } else if (choice == options[1]) {
                 int nrOfGymVisits = Utility.updateCustomerGymVisitsFromFile(customer, bestGymEver.getFilePathGymVisits());
                 showMessageDialog(windowMain, customer.getName() + " har haft " + nrOfGymVisits + " gymbesök:\n" +
                         customer.showAllVisits(), dialogTitle, INFORMATION_MESSAGE);
+                mainMenu(bestGymEver);
             }
         } else {
             activateCustomerMembership(bestGymEver, customer);

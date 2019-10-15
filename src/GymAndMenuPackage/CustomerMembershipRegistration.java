@@ -10,14 +10,12 @@ import java.time.LocalDate;
 import static GymAndMenuPackage.MainMenu.*;
 import static javax.swing.JOptionPane.*;
 
-public class CustomerMembershipRegistration {
+class CustomerMembershipRegistration {
 
     private static final String registrationTitle = "Best Gym Ever - Registrera Ny Medlem";
 
     //Ask for customer information, verify and register new customer if correct
-    public static void registerNewCustomerViaUserInput(BestGymEver bestGymEver) {
-        Customer customer = new Customer();
-
+    static void registerNewCustomerViaUserInput(BestGymEver bestGymEver) {
         JPanel signUpPanel = new JPanel(new GridLayout(0, 2));
 
         JLabel mustPayMessage = new JLabel("OBS! Kunden måste betala innan registrering!");
@@ -39,21 +37,39 @@ public class CustomerMembershipRegistration {
 
         int choice = showConfirmDialog(windowMain, signUpPanel, registrationTitle, OK_CANCEL_OPTION);
 
-        String inputName = textFieldName.getText();
-        String inputPersonalID = textFieldPersonalID.getText();
+        String inputName = textFieldName.getText().trim();
+        String inputPersonalID = textFieldPersonalID.getText().trim();
 
         if (choice == OK_OPTION) {
+
+            if (Utility.getCustomerFromList(bestGymEver.getCustomerList(), inputName) != null){
+                showMessageDialog(windowMain, Utility.formatStringToFirstLastName(inputName) + " är redan registrerad!", registrationTitle, WARNING_MESSAGE);
+                registerNewCustomerViaUserInput(bestGymEver);
+            }
+            else if (Utility.getCustomerFromList(bestGymEver.getCustomerList(), inputPersonalID) != null){
+                showMessageDialog(windowMain, "Personnumret " + inputPersonalID + " är redan registrerat!", registrationTitle, WARNING_MESSAGE);
+                registerNewCustomerViaUserInput(bestGymEver);
+            }
             //Validate format of name and personalID
-            if (Utility.validatedSignUpInput(inputName, inputPersonalID)) {
+            else if (Utility.validatedSignUpInput(inputName, inputPersonalID)) {
+                Customer customer = new Customer();
+
                 //Register customer
-                customer.setName(inputName);
+                customer.setName(Utility.formatStringToFirstLastName(inputName));
                 customer.setPersonalID(inputPersonalID);
                 customer.setMembershipDate(LocalDate.now());
                 customer.setActiveMember(true);
+                /*if (customer.equals(Utility.getCustomerFromList(bestGymEver.getCustomerList(), inputName)) ||
+                        customer.equals(Utility.getCustomerFromList(bestGymEver.getCustomerList(), inputPersonalID))){
+                    showMessageDialog(windowMain, "Personen är redan registrerad!", registrationTitle, WARNING_MESSAGE);
+                    registerNewCustomerViaUserInput(bestGymEver);
+                }*/
+                //else {
                 bestGymEver.getCustomerList().add(customer);
                 Utility.addCustomerToFile(customer, bestGymEver.getFilePathUpdatedCustomers());
                 showMessageDialog(windowMain, customer.getName() + " är nu registrerad som medlem", registrationTitle, INFORMATION_MESSAGE);
                 mainMenu(bestGymEver);
+                //}
             } else {
                 //If format is invalid
                 showMessageDialog(windowMain, "Felaktigt Format!", registrationTitle, WARNING_MESSAGE);

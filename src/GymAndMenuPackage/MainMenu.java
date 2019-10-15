@@ -1,16 +1,13 @@
 package GymAndMenuPackage;
 
-import UtilityPackage.ActionListenerFrame;
-import UtilityPackage.ImagePanel;
+import UtilityPackage.Window;
 import UtilityPackage.Utility;
-
-import javax.swing.*;
 
 import static javax.swing.JOptionPane.*;
 
 public class MainMenu {
 
-    protected static ActionListenerFrame windowMain;
+    protected static Window windowMain;
 
     protected static final String dialogTitle = "Best Gym Ever - Kundregister";
 
@@ -18,10 +15,12 @@ public class MainMenu {
         BestGymEver bestGymEver = new BestGymEver();
 
         //Creating the frame for the program
-        windowMain = new ActionListenerFrame(bestGymEver);
+        windowMain = new Window(bestGymEver);
         mainMenu(bestGymEver);
 
-        //RUN MINIMUM 3 TESTS IN TEST CLASSES!!!
+
+        //WRITE OBJECT-LIST AND READ OBJECT-LIST INSTEAD OF TEXT-SCANNING
+        //CHANGE TO PATH INSTEAD OF STRING
 
         //DISPLAY CUSTOMER LIST. SHOW NR OF GYM VISITS & EXPIRATION DATE?
         // ENABLE SORTING BY FIRST NAME, LAST NAME, MEMBERSHIP DATE, SHOW ONLY ACTIVE/NON-ACTIVE MEMBERS?
@@ -29,9 +28,6 @@ public class MainMenu {
 
     //The main menu for the Best Gym Ever Application
     public static void mainMenu(BestGymEver bestGymEver) {
-
-        //WHY DOES IT NOT UPDATE FAST ENOUGH?!?!?!?!?!
-        //windowMain.refreshFrame();
 
         //Update the list, create list if empty
         bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
@@ -49,8 +45,7 @@ public class MainMenu {
         if (choice == options[0])
             CustomerSearchMenu.searchRegistryViaUserInput(bestGymEver);
         else if (choice == options[1]){
-            //FINISH METHOD!
-            CustomerRegistryMenu.customerRegistryMenu(bestGymEver);
+            windowMain.initializeRegistryMenu();
         }
         else {
             CustomerMembershipRegistration.registerNewCustomerViaUserInput(bestGymEver);
