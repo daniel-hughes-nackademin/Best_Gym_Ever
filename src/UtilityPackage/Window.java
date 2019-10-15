@@ -6,8 +6,6 @@ import GymAndMenuPackage.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -64,17 +62,32 @@ public class Window extends JFrame {
         gridPanel.add(emptyLabel);
 
         //Button 1
-        JButton alphaButton = new JButton("Alfabetisk Ordning");
-        alphaButton.addActionListener(e -> {
+        JButton firstNameButton = new JButton("Förnamn");
+        firstNameButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
             Collections.sort(bestGymEver.getCustomerList(), Comparator.comparing(Customer::getName)); //sort alphabetically
             makeCustomerListInScrollableWindow(bestGymEver.getCustomerList());
             this.jLayeredPane.add(scrollableTextWindow, 2);
         });
-        gridPanel.add(alphaButton);
+        gridPanel.add(firstNameButton);
         gridPanel.add(emptyLabel);
 
         //Button 2
+       JButton lastNameButton = new JButton("Efternamn");
+        lastNameButton.addActionListener(e -> {
+            jLayeredPane.remove(scrollableTextWindow);
+             //Sort alphabetically by last name, then first name
+            Collections.sort(bestGymEver.getCustomerList(), Comparator.comparing((Customer c) ->
+                    c.getName().substring(c.getName().indexOf(' ') + 1)).thenComparing(c -> c.getName().substring(0, c.getName().indexOf(' '))));
+            //Formats names in list to "Last, First" and displays in scrollPanel
+            List<Customer> lastNameList = Utility.switchFirstAndLastNamesInCustomerList(bestGymEver.getCustomerList());
+            makeCustomerListInScrollableWindow(lastNameList);
+            this.jLayeredPane.add(scrollableTextWindow, 2);
+        });
+        gridPanel.add(lastNameButton);
+        gridPanel.add(emptyLabel);
+
+        //Button 3
         JButton personalID_Button = new JButton("Personnummer");
         personalID_Button.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
@@ -85,7 +98,7 @@ public class Window extends JFrame {
         gridPanel.add(personalID_Button);
         gridPanel.add(emptyLabel);
 
-        //Button 3
+        //Button 4
         JButton membershipButton = new JButton("Registreringsdatum");
         membershipButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
@@ -96,7 +109,7 @@ public class Window extends JFrame {
         gridPanel.add(membershipButton);
         gridPanel.add(emptyLabel);
 
-        //Button 4
+        //Button 5
         JButton activeButton = new JButton("Visa Aktiva Medlemmar");
         activeButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
@@ -113,7 +126,7 @@ public class Window extends JFrame {
         gridPanel.add(activeButton);
         gridPanel.add(emptyLabel);
 
-        //Button 5
+        //Button 6
         JButton notActiveButton = new JButton("Visa Inaktiva Medlemmar");
         notActiveButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);

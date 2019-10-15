@@ -71,6 +71,18 @@ public class Utility {
 
     }
 
+    //Switch places of first name and last name, renames customer name to "Last, First" for later presentation
+    public static List<Customer> switchFirstAndLastNamesInCustomerList(List<Customer> customerList) {
+
+        for (Customer customer: customerList) {
+            String first = customer.getName().substring(0, customer.getName().indexOf(' '));
+            String last = customer.getName().substring(customer.getName().indexOf(' ')+1);
+            customer.setName(last + ", " + first);
+        }
+
+        return customerList;
+    }
+
 
     //CUSTOMER METHODS
     //Returns Customer from input customer list if searchInput equals name or personalID of a customer in the list
@@ -147,7 +159,6 @@ public class Utility {
                 fullName.substring(fullName.indexOf(' ')+2).toLowerCase();
         return first + ' ' + last;
     }
-
 
     //Returns String presentation of the input customer list
     public static String getCustomerListAsString(List<Customer> customerList) {
@@ -267,6 +278,7 @@ public class Utility {
 
         return isCorrect;
     }
+
 
 
 }
