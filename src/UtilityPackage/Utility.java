@@ -77,7 +77,7 @@ public class Utility {
         for (Customer customer: customerList) {
             String first = customer.getName().substring(0, customer.getName().indexOf(' '));
             String last = customer.getName().substring(customer.getName().indexOf(' ')+1);
-            customer.setName(last + ", " + first);
+            customer.setName(last + " " + first);
         }
 
         return customerList;

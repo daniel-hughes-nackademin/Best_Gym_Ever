@@ -19,11 +19,7 @@ public class MainMenu {
         mainMenu(bestGymEver);
 
 
-
-
         //CHANGE TO PATH INSTEAD OF STRING
-
-        //ADD BUTTON TO SORT WITH NEWEST/OLDEST ETC - ARROW DOWN AND UP DEPENDING, BOOLEAN
 
         //FIX WINDOW MINIMIZATION BUG
     }

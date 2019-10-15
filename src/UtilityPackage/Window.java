@@ -101,15 +101,18 @@ public class Window extends JFrame {
        JButton lastNameButton = new JButton("Efternamn");
         lastNameButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
+
+            List<Customer> lastNameList = bestGymEver.getCustomerList();
              //Sort alphabetically by last name, then first name
-            Collections.sort(bestGymEver.getCustomerList(), Comparator.comparing((Customer c) ->
+            Collections.sort(lastNameList, Comparator.comparing((Customer c) ->
                     c.getName().substring(c.getName().indexOf(' ') + 1)).thenComparing(c -> c.getName().substring(0, c.getName().indexOf(' '))));
             //Formats names in list to "Last, First" and displays in scrollPanel
-            List<Customer> lastNameList = Utility.switchFirstAndLastNamesInCustomerList(bestGymEver.getCustomerList());
+            lastNameList = Utility.switchFirstAndLastNamesInCustomerList(lastNameList);
             if (reverseListButton.getText() == arrowUp)
                 Collections.reverse(lastNameList);
             makeCustomerListInScrollableWindow(lastNameList);
             this.jLayeredPane.add(scrollableTextWindow, 2);
+            bestGymEver.setCustomerList(Utility.getCustomerListFromFile(bestGymEver.getFilePathUpdatedCustomers()));
         });
         gridPanel.add(lastNameButton);
         gridPanel.add(emptyLabel);
