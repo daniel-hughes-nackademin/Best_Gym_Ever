@@ -42,8 +42,31 @@ public class Window extends JFrame {
     }
 
     public void initializeRegistryMenu(){
+        //Arrow button to change order of the list
+        String arrowUp = "\u2191";
+        String arrowDown = "\u2193";
+        JButton reverseListButton = new JButton(arrowDown);
+        reverseListButton.setFont(new Font("Courier New", Font.BOLD, 24));
+        reverseListButton.addActionListener(e -> {
+            if (reverseListButton.getText() == arrowDown){
+                reverseListButton.setText(arrowUp);
+            }
+            else if (reverseListButton.getText() == arrowUp){
+                reverseListButton.setText(arrowDown);
+            }
+            Collections.reverse(bestGymEver.getCustomerList());
+            jLayeredPane.remove(scrollableTextWindow);
+            makeCustomerListInScrollableWindow(bestGymEver.getCustomerList());
+            this.jLayeredPane.add(scrollableTextWindow, 2);
+        });
+        reverseListButton.setBounds(370, 270, 50, 50);
+        this.jLayeredPane.add(reverseListButton,1);
+
+
+
+        //Making flowpanel for button arrangement
         JPanel flowPanelButtons = new JPanel(new FlowLayout(FlowLayout.LEADING));
-        flowPanelButtons.setBounds(230,320, 190, 170);
+        flowPanelButtons.setBounds(230,320, 190, 200);
         flowPanelButtons.setBackground(Color.BLACK);
 
         flowPanelButtons.setVisible(true);
@@ -66,6 +89,8 @@ public class Window extends JFrame {
         firstNameButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
             Collections.sort(bestGymEver.getCustomerList(), Comparator.comparing(Customer::getName)); //sort alphabetically
+            if (reverseListButton.getText() == arrowUp)
+                Collections.reverse(bestGymEver.getCustomerList());
             makeCustomerListInScrollableWindow(bestGymEver.getCustomerList());
             this.jLayeredPane.add(scrollableTextWindow, 2);
         });
@@ -81,6 +106,8 @@ public class Window extends JFrame {
                     c.getName().substring(c.getName().indexOf(' ') + 1)).thenComparing(c -> c.getName().substring(0, c.getName().indexOf(' '))));
             //Formats names in list to "Last, First" and displays in scrollPanel
             List<Customer> lastNameList = Utility.switchFirstAndLastNamesInCustomerList(bestGymEver.getCustomerList());
+            if (reverseListButton.getText() == arrowUp)
+                Collections.reverse(lastNameList);
             makeCustomerListInScrollableWindow(lastNameList);
             this.jLayeredPane.add(scrollableTextWindow, 2);
         });
@@ -91,7 +118,9 @@ public class Window extends JFrame {
         JButton personalID_Button = new JButton("Personnummer");
         personalID_Button.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
-            Collections.sort(bestGymEver.getCustomerList(), Comparator.comparing(Customer::getPersonalID)); //sort by personal ID
+            Collections.sort(bestGymEver.getCustomerList(), Comparator.comparing(Customer::getPersonalID));//sort by personal ID
+            if (reverseListButton.getText() == arrowUp)
+                Collections.reverse(bestGymEver.getCustomerList());
             makeCustomerListInScrollableWindow(bestGymEver.getCustomerList());
             this.jLayeredPane.add(scrollableTextWindow, 2);
         });
@@ -103,6 +132,8 @@ public class Window extends JFrame {
         membershipButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
             Collections.sort(bestGymEver.getCustomerList(), Comparator.comparing(Customer::getMembershipDate)); //sort by membership date
+            if (reverseListButton.getText() == arrowUp)
+                Collections.reverse(bestGymEver.getCustomerList());
             makeCustomerListInScrollableWindow(bestGymEver.getCustomerList());
             this.jLayeredPane.add(scrollableTextWindow, 2);
         });
@@ -112,7 +143,6 @@ public class Window extends JFrame {
         //Button 5
         JButton activeButton = new JButton("Visa Aktiva Medlemmar");
         activeButton.addActionListener(e -> {
-            jLayeredPane.remove(scrollableTextWindow);
             List<Customer> activeMembers = new ArrayList<>();
             for (Customer customer: bestGymEver.getCustomerList()) {
                 if (customer.isActiveMember()){
@@ -120,6 +150,7 @@ public class Window extends JFrame {
                 }
             }
             Collections.sort(activeMembers, Comparator.comparing(Customer::getName));
+            jLayeredPane.remove(scrollableTextWindow);
             makeCustomerListInScrollableWindow(activeMembers);
             this.jLayeredPane.add(scrollableTextWindow, 2);
         });
@@ -145,6 +176,7 @@ public class Window extends JFrame {
 
         //Adding side button panel to the layeredPane
         this.jLayeredPane.add(flowPanelButtons, 1);
+
 
         //Main menu button
         JButton mainMenuButton = new JButton("Huvudmeny");
