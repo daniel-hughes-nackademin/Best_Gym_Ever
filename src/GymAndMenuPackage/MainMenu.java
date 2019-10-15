@@ -7,9 +7,9 @@ import static javax.swing.JOptionPane.*;
 
 public class MainMenu {
 
-    protected static Window windowMain;
+    static Window windowMain;
 
-    protected static final String dialogTitle = "Best Gym Ever - Kundregister";
+    static final String dialogTitle = "Best Gym Ever - Kundregister";
 
     public static void main(String[] args) {
         BestGymEver bestGymEver = new BestGymEver();
@@ -20,6 +20,7 @@ public class MainMenu {
 
 
         //CHANGE TO PATH INSTEAD OF STRING
+
 
         //FIX WINDOW MINIMIZATION BUG
     }
