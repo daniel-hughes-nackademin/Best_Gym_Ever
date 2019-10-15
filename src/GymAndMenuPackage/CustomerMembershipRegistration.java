@@ -59,23 +59,17 @@ class CustomerMembershipRegistration {
                 customer.setPersonalID(inputPersonalID);
                 customer.setMembershipDate(LocalDate.now());
                 customer.setActiveMember(true);
-                /*if (customer.equals(Utility.getCustomerFromList(bestGymEver.getCustomerList(), inputName)) ||
-                        customer.equals(Utility.getCustomerFromList(bestGymEver.getCustomerList(), inputPersonalID))){
-                    showMessageDialog(windowMain, "Personen är redan registrerad!", registrationTitle, WARNING_MESSAGE);
-                    registerNewCustomerViaUserInput(bestGymEver);
-                }*/
-                //else {
                 bestGymEver.getCustomerList().add(customer);
                 Utility.addCustomerToFile(customer, bestGymEver.getFilePathUpdatedCustomers());
                 showMessageDialog(windowMain, customer.getName() + " är nu registrerad som medlem", registrationTitle, INFORMATION_MESSAGE);
                 mainMenu(bestGymEver);
-                //}
+
             } else {
                 //If format is invalid
                 showMessageDialog(windowMain, "Felaktigt Format!", registrationTitle, WARNING_MESSAGE);
                 registerNewCustomerViaUserInput(bestGymEver);
             }
-        } else
+        } else //If cancel or closing window
             mainMenu(bestGymEver);
     }
 }

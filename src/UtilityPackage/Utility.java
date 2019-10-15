@@ -97,6 +97,11 @@ public class Utility {
 
     }
 
+    public static void removeCustomerFromFile(BestGymEver bestGymEver, Customer customer){
+        bestGymEver.getCustomerList().remove(customer);
+        Utility.writeCustomerListToFile(bestGymEver.getCustomerList(), bestGymEver.getFilePathUpdatedCustomers());
+    }
+
 
     //GYM VISIT METHODS
     //Gym Visit is added at the end of the file, or written into a new file if input file path doesn't exist

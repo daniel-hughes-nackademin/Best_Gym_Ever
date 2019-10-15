@@ -67,6 +67,10 @@ public class CustomerSearchMenu {
     public static void activateCustomerMembership(BestGymEver bestGymEver, Customer customer) {
         int choice = showConfirmDialog(windowMain, "Vill " + customer.getName() + " betala medlemsavgift och bli medlem?", dialogTitle, YES_NO_OPTION);
         if (choice == YES_OPTION) {
+            //We remove the old version with an inactive customer from the list
+            Utility.removeCustomerFromFile(bestGymEver, customer);
+
+            //We make the customer active
             customer.setMembershipDate(LocalDate.now());
             customer.setActiveMember(true);
             showMessageDialog(windowMain, customer.getName() + " är nu medlem hos Best Gym Ever! Välkommen!", dialogTitle, INFORMATION_MESSAGE);

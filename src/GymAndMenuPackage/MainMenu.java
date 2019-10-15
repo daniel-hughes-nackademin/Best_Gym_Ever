@@ -19,11 +19,15 @@ public class MainMenu {
         mainMenu(bestGymEver);
 
 
-        //WRITE OBJECT-LIST AND READ OBJECT-LIST INSTEAD OF TEXT-SCANNING
+
+
         //CHANGE TO PATH INSTEAD OF STRING
 
-        //DISPLAY CUSTOMER LIST. SHOW NR OF GYM VISITS & EXPIRATION DATE?
-        // ENABLE SORTING BY FIRST NAME, LAST NAME, MEMBERSHIP DATE, SHOW ONLY ACTIVE/NON-ACTIVE MEMBERS?
+        // ENABLE SORTING BY FIRST NAME, LAST NAME
+
+        //ADD BUTTON TO SORT WITH NEWEST/OLDEST ETC - ARROW DOWN AND UP DEPENDING, BOOLEAN
+
+        //FIX WINDOW MINIMIZATION BUG
     }
 
     //The main menu for the Best Gym Ever Application
@@ -32,7 +36,7 @@ public class MainMenu {
         //Update the list, create list if empty
         bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
 
-        Object[] options = {"Sök efter kund i registret", "Visa kundregister", "Registrera ny kund"};
+        Object[] options = {"Sök efter kund i registret", "Visa kundregister", "Registrera ny kund", "Ta bort kund från registret"};
         Object choice = showInputDialog(windowMain, "Vad vill du göra?", "Best Gym Ever - Customer Management Software",
                 QUESTION_MESSAGE, null, options, options[0]);
         if (choice == null) {
@@ -47,17 +51,12 @@ public class MainMenu {
         else if (choice == options[1]){
             windowMain.initializeRegistryMenu();
         }
-        else {
+        else if (choice == options[2]){
             CustomerMembershipRegistration.registerNewCustomerViaUserInput(bestGymEver);
         }
+        else {
+            RemoveCustomerMenu.removeCustomerViaUserInput(bestGymEver);
+        }
 
-
-
-
-
-    }
-
-    public static String getDialogTitle() {
-        return dialogTitle;
     }
 }
