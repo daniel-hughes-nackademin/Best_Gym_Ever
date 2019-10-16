@@ -24,6 +24,10 @@ public class MainMenu {
         UIManager.put("OptionPane.messageForeground", Color.white);
         UIManager.put("Panel.background", Color.darkGray);
 
+        UIManager.put("Button.background", new Color(125, 46, 154));
+        UIManager.put("Button.foreground", Color.white);
+        UIManager.put("Label.foreground", Color.white);
+
         mainMenu(bestGymEver);
 
     }
@@ -35,9 +39,7 @@ public class MainMenu {
         bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
 
         UIManager.put("OptionPane.cancelButtonText", "Avsluta");
-        UIManager.put("Button.background", new Color(125, 46, 154));
-        UIManager.put("Button.foreground", Color.white);
-        UIManager.put("Label.foreground", Color.white);
+
 
         Object[] options = {"Sök efter kund i registret", "Visa kundregister", "Registrera ny kund", "Ta bort kund från registret"};
         Object choice = showInputDialog(windowMain, "Vad vill du göra?", "Best Gym Ever - Customer Management Software",
