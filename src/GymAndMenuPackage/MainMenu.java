@@ -51,9 +51,7 @@ public class MainMenu {
                 System.exit(0);
             } else mainMenu(bestGymEver); //restart mainMenu()
         }
-
-
-        if (choice == options[0])
+        else if (choice == options[0])
             CustomerSearchMenu.searchRegistryViaUserInput(bestGymEver);
         else if (choice == options[1]){
             windowMain.initializeRegistryMenu();
