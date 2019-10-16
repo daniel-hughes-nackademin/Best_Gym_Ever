@@ -3,6 +3,7 @@ package UtilityPackage;
 import CustomerPackage.Customer;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,12 +15,17 @@ class UtilityTest {
     void validatedSignUpInput() {
         assertTrue(Utility.validatedSignUpInput("Lukas Gustavson", "1210134508"));
         assertTrue(Utility.validatedSignUpInput("mr andersson", "0611301234"));
+        assertTrue(Utility.validatedSignUpInput("mR anDErSSon", "0611301234"));
 
 
+        assertFalse(Utility.validatedSignUpInput("Luka5 Gustavson", "1210134508"));
+        assertFalse(Utility.validatedSignUpInput("Lukas  Gustavson", "1210134508"));
+        assertFalse(Utility.validatedSignUpInput("mr ande#sson", "0611301234"));
         assertFalse(Utility.validatedSignUpInput("Lukas", "1210134508"));
         assertFalse(Utility.validatedSignUpInput("Lukas Gregorson", "1213134508")); //invalid month
         assertFalse(Utility.validatedSignUpInput("Lukas Gregorson", "1202304508")); //Invalid day
         assertFalse(Utility.validatedSignUpInput("mr. andersson", "0611301234"));
+        assertFalse(Utility.validatedSignUpInput("Lukas Gregorson", "abcdefghji"));
     }
 
     @Test
@@ -65,7 +71,7 @@ class UtilityTest {
 
     @Test
     void testGetCustomerFromList() {
-        List<Customer> customerList = Utility.getCustomerListFromFile("Test\\testFileFolder\\customersTest.txt");
+        List<Customer> customerList = Utility.getCustomerListFromFile(Paths.get("Test\\testFileFolder\\customersTest.txt"));
 
         Customer testPerson1 = new Customer();
         testPerson1.setName("Alhambra Aromes");
@@ -84,7 +90,7 @@ class UtilityTest {
         assertNotEquals(customerList.get(11).getMembershipDate(), testPerson2.getMembershipDate());
 
 
-        customerList = Utility.getCustomerListFromFile("Test\\testFileFolder\\Testnumber2.txt");
+        customerList = Utility.getCustomerListFromFile(Paths.get("Test\\testFileFolder\\Testnumber2.txt"));
 
         Customer testPerson3 = new Customer();
         testPerson3.setName("Galna Pantern");

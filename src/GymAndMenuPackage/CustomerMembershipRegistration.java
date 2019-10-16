@@ -60,7 +60,7 @@ class CustomerMembershipRegistration {
                 customer.setMembershipDate(LocalDate.now());
                 customer.setActiveMember(true);
                 bestGymEver.getCustomerList().add(customer);
-                Utility.addCustomerToFile(customer, bestGymEver.getFilePathUpdatedCustomers());
+                Utility.addCustomerToFile(customer, bestGymEver.getPathUpdatedCustomers());
                 showMessageDialog(windowMain, customer.getName() + " är nu registrerad som medlem", registrationTitle, INFORMATION_MESSAGE);
                 mainMenu(bestGymEver);
 

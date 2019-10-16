@@ -10,9 +10,9 @@ import static javax.swing.JOptionPane.*;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 //This class has methods that allows to search for a customer and then make changes from there
-public class CustomerSearchMenu {
+class CustomerSearchMenu {
 
-    public static void searchRegistryViaUserInput(BestGymEver bestGymEver) {
+   static void searchRegistryViaUserInput(BestGymEver bestGymEver) {
         //Update the list, create list if empty
         bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
 
@@ -42,7 +42,7 @@ public class CustomerSearchMenu {
         }
     }
 
-    public static void runCustomerMenu(BestGymEver bestGymEver, Customer customer) {
+    private static void runCustomerMenu(BestGymEver bestGymEver, Customer customer) {
         if (customer.isActiveMember()) {
             Object[] options = {"Träna på gymmet och logga i tränarens lista", "Se lista över kundens gympass"};
             Object choice = showInputDialog(windowMain, "Vad vill " + customer.getName() + " göra?", dialogTitle, PLAIN_MESSAGE, null, options, options[0]);
@@ -50,11 +50,11 @@ public class CustomerSearchMenu {
             if (choice == null)
                 MainMenu.mainMenu(bestGymEver);
             else if (choice == options[0]) {
-                Utility.addGymVisitToFile(customer, bestGymEver.getFilePathGymVisits());
+                Utility.addGymVisitToFile(customer, bestGymEver.getPathGymVisits());
                 showMessageDialog(windowMain, "Träningspass för " + customer.getName() + " är loggat i listan.", dialogTitle, INFORMATION_MESSAGE);
                 mainMenu(bestGymEver);
             } else if (choice == options[1]) {
-                int nrOfGymVisits = Utility.updateCustomerGymVisitsFromFile(customer, bestGymEver.getFilePathGymVisits());
+                int nrOfGymVisits = Utility.updateCustomerGymVisitsFromFile(customer, bestGymEver.getPathGymVisits());
                 showMessageDialog(windowMain, customer.getName() + " har haft " + nrOfGymVisits + " gymbesök:\n" +
                         customer.showAllVisits(), dialogTitle, INFORMATION_MESSAGE);
                 mainMenu(bestGymEver);
@@ -64,7 +64,7 @@ public class CustomerSearchMenu {
         }
     }
 
-    public static void activateCustomerMembership(BestGymEver bestGymEver, Customer customer) {
+   private static void activateCustomerMembership(BestGymEver bestGymEver, Customer customer) {
         int choice = showConfirmDialog(windowMain, "Vill " + customer.getName() + " betala medlemsavgift och bli medlem?", dialogTitle, YES_NO_OPTION);
         if (choice == YES_OPTION) {
             //We remove the old version with an inactive customer from the list
@@ -76,7 +76,7 @@ public class CustomerSearchMenu {
             showMessageDialog(windowMain, customer.getName() + " är nu medlem hos Best Gym Ever! Välkommen!", dialogTitle, INFORMATION_MESSAGE);
 
             //Here we add the customer to our file "Customer List.txt" and update the actual list
-            Utility.addCustomerToFile(customer, bestGymEver.getFilePathUpdatedCustomers());
+            Utility.addCustomerToFile(customer, bestGymEver.getPathUpdatedCustomers());
             bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
 
             runCustomerMenu(bestGymEver, customer);

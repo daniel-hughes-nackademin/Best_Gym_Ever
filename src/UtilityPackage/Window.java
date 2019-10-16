@@ -21,7 +21,7 @@ public class Window extends JFrame {
     public Window(BestGymEver bestGymEver){
         super(bestGymEver.getTitle());
         this.bestGymEver = bestGymEver;
-        ImagePanel imagePanel = new ImagePanel(new ImageIcon(bestGymEver.getFilePathBackgroundImage()).getImage());
+        ImagePanel imagePanel = new ImagePanel(new ImageIcon(String.valueOf(bestGymEver.getPathBackgroundImage())).getImage());
         jLayeredPane = new JLayeredPane();
         this.add(jLayeredPane);
         jLayeredPane.add(imagePanel, 0);
@@ -61,8 +61,9 @@ public class Window extends JFrame {
         flowPanelButtons.setBounds(230,320, 190, 200);
         flowPanelButtons.setBackground(Color.BLACK);
 
-        flowPanelButtons.setVisible(true);
+        //Gridpanel for buttons, add to flowpanel
         JPanel gridPanel = new JPanel(new GridLayout(0,1));
+        gridPanel.setBounds(230,320, 190, 200);
         gridPanel.setBackground(Color.BLACK);
         flowPanelButtons.add(gridPanel);
 
@@ -79,7 +80,7 @@ public class Window extends JFrame {
         //Button 1
         JButton firstNameButton = new JButton("Förnamn");
         firstNameButton.addActionListener(e -> {
-            bestGymEver.setCustomerList(Utility.getCustomerListFromFile(bestGymEver.getFilePathUpdatedCustomers()));
+            bestGymEver.setCustomerList(Utility.getCustomerListFromFile(bestGymEver.getPathUpdatedCustomers()));
             jLayeredPane.remove(scrollableTextWindow);
             bestGymEver.getCustomerList().sort(Comparator.comparing(Customer::getName)); //sort alphabetically
             if (reverseListButton.getText().equals(arrowUp))
@@ -95,7 +96,7 @@ public class Window extends JFrame {
         lastNameButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
 
-            bestGymEver.setCustomerList(Utility.getCustomerListFromFile(bestGymEver.getFilePathUpdatedCustomers()));
+            bestGymEver.setCustomerList(Utility.getCustomerListFromFile(bestGymEver.getPathUpdatedCustomers()));
             List<Customer> lastNameList = bestGymEver.getCustomerList();
              //Sort alphabetically by last name, then first name
             lastNameList.sort(Comparator.comparing((Customer c) ->
@@ -203,7 +204,7 @@ public class Window extends JFrame {
         this.jLayeredPane.removeAll();
         this.jLayeredPane.revalidate();
         this.jLayeredPane.repaint();
-        ImagePanel imagePanel = new ImagePanel(new ImageIcon(bestGymEver.getFilePathBackgroundImage()).getImage());
+        ImagePanel imagePanel = new ImagePanel(new ImageIcon(String.valueOf(bestGymEver.getPathBackgroundImage())).getImage());
         this.jLayeredPane.add(imagePanel, 0);
     }
 }

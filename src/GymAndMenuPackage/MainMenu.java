@@ -19,6 +19,10 @@ public class MainMenu {
         mainMenu(bestGymEver);
 
 
+        //STOP DUPLICATE BUTTONS
+
+        //"Ta bort kund"-MENU SHOWING UP IN REGISTRY
+
         //CHANGE TO PATH INSTEAD OF STRING
 
 

@@ -1,26 +1,25 @@
 package GymAndMenuPackage;
 
 import CustomerPackage.Customer;
-import UtilityPackage.*;
 
-import javax.swing.*;
-import java.awt.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 //The gym class. Each gym has a window, a list of customers and relevant file paths
 public class BestGymEver {
 
-    protected String title = "Best Gym Ever - Seriously the best gym there is. Maybe.";
+    private String title = "Best Gym Ever - Seriously the best gym there is. Maybe.";
     private List<Customer> customerList;
 
 
-    private final String filePathOriginalCustomers = "src\\fileFolder\\customers.txt";
-    private final String filePathGymVisits = "src\\fileFolder\\Gym Visits.txt";
-    private final String filePathUpdatedCustomers = "src\\fileFolder\\Customer List.txt";
-    private final String filePathBackgroundImage = "src\\fileFolder\\Gym Picture.jpg";
+    private final Path pathOriginalCustomers = Paths.get("src\\fileFolder\\customers.txt");
+    private final Path pathGymVisits = Paths.get("src\\fileFolder\\Gym Visits.txt");
+    private final Path pathUpdatedCustomers = Paths.get("src\\fileFolder\\Customer List.txt");
+    private final Path pathBackgroundImage = Paths.get("src\\fileFolder\\Gym Picture.jpg");
 
     //gym constructor
-    public BestGymEver() {}
+    BestGymEver() {}
 
     public BestGymEver(String title) {
         this.title = title;
@@ -43,20 +42,20 @@ public class BestGymEver {
         return title;
     }
 
-    public String getFilePathBackgroundImage() {
-        return filePathBackgroundImage;
+    public Path getPathBackgroundImage() {
+        return pathBackgroundImage;
     }
 
-    public String getFilePathOriginalCustomers() {
-        return filePathOriginalCustomers;
+    public Path getPathOriginalCustomers() {
+        return pathOriginalCustomers;
     }
 
-    public String getFilePathGymVisits() {
-        return filePathGymVisits;
+    Path getPathGymVisits() {
+        return pathGymVisits;
     }
 
-    public String getFilePathUpdatedCustomers() {
-        return filePathUpdatedCustomers;
+    public Path getPathUpdatedCustomers() {
+        return pathUpdatedCustomers;
     }
 
 

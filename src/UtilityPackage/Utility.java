@@ -6,7 +6,7 @@ import CustomerPackage.Customer;
 
 import javax.swing.*;
 import java.io.*;
-import java.text.DateFormat;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,23 +22,23 @@ public class Utility {
     public static List<Customer> updateCustomerListFromFile(BestGymEver bestGymEver) {
         List<Customer> customerList;
 
-        File updatedCustomerFile = new File(bestGymEver.getFilePathUpdatedCustomers());
+        File updatedCustomerFile = new File(String.valueOf(bestGymEver.getPathUpdatedCustomers()));
 
         //If Customer List file does not exist, create it from original customers.txt file
         if (!updatedCustomerFile.exists()) {
-            customerList = getCustomerListFromFile(bestGymEver.getFilePathOriginalCustomers());
-            writeCustomerListToFile(customerList, bestGymEver.getFilePathUpdatedCustomers());
+            customerList = getCustomerListFromFile(bestGymEver.getPathOriginalCustomers());
+            writeCustomerListToFile(customerList, bestGymEver.getPathUpdatedCustomers());
         } else { //If we have an updated customer list, get that one
-            customerList = getCustomerListFromFile(bestGymEver.getFilePathUpdatedCustomers());
+            customerList = getCustomerListFromFile(bestGymEver.getPathUpdatedCustomers());
         }
         return customerList;
     }
 
     //Returns a list extracted from the input file path
-    public static List<Customer> getCustomerListFromFile(String filePath) {
+    public static List<Customer> getCustomerListFromFile(Path filePath) {
         List<Customer> customerList = new ArrayList<>();
 
-        try (Scanner scanner = new Scanner(new File(filePath))) {
+        try (Scanner scanner = new Scanner(new File(String.valueOf(filePath)))) {
             while (scanner.hasNext()) {
                 Customer customer = new Customer();
                 String lineFromFile = scanner.nextLine().trim();
@@ -58,9 +58,9 @@ public class Utility {
     }
 
     //Customer list is written to file and overwrites if the file exists
-    public static void writeCustomerListToFile(List<Customer> customerList, String filePath) {
+    public static void writeCustomerListToFile(List<Customer> customerList, Path filePath) {
 
-        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filePath)))) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filePath.toFile())))) {
             for (Customer customer : customerList) {
                 writer.println(customer.getPersonalID() + ", " + customer.getName());
                 writer.println(customer.getMembershipDate());
@@ -98,9 +98,9 @@ public class Utility {
     }
 
     //Customer is added at the end of the file
-    public static void addCustomerToFile(Customer customer, String filePath) {
+    public static void addCustomerToFile(Customer customer, Path filePath) {
 
-        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filePath, true)))) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filePath.toFile(), true)))) {
             writer.println(customer.getPersonalID() + ", " + customer.getName());
             writer.println(customer.getMembershipDate());
         } catch (IOException e) {
@@ -111,16 +111,16 @@ public class Utility {
 
     public static void removeCustomerFromFile(BestGymEver bestGymEver, Customer customer){
         bestGymEver.getCustomerList().remove(customer);
-        Utility.writeCustomerListToFile(bestGymEver.getCustomerList(), bestGymEver.getFilePathUpdatedCustomers());
+        Utility.writeCustomerListToFile(bestGymEver.getCustomerList(), bestGymEver.getPathUpdatedCustomers());
     }
 
 
     //GYM VISIT METHODS
     //Gym Visit is added at the end of the file, or written into a new file if input file path doesn't exist
-    public static void addGymVisitToFile(Customer customer, String filePath) {
+    public static void addGymVisitToFile(Customer customer, Path filePath) {
         LocalDateTime checkInTime = LocalDateTime.now().withNano(0).withSecond(0);
 
-        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filePath, true)))) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filePath.toFile(), true)))) {
             writer.println(customer.getPersonalID() + ", " + customer.getName());
             writer.println(checkInTime);
         } catch (IOException e) {
@@ -129,10 +129,10 @@ public class Utility {
     }
 
     //Updates the GymVisits list for input customer and returns number of GymVisits
-    public static int updateCustomerGymVisitsFromFile(Customer customer, String filePath) {
+    public static int updateCustomerGymVisitsFromFile(Customer customer, Path filePath) {
         customer.getGymVisits().clear();
 
-        try (Scanner scanner = new Scanner(new File(filePath))) {
+        try (Scanner scanner = new Scanner(new File(String.valueOf(filePath)))) {
             while (scanner.hasNext()) {
                 boolean correctCustomer = false;
                 String lineFromFile = scanner.nextLine().trim();
