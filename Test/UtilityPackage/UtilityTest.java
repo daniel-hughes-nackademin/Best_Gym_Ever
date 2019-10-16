@@ -22,6 +22,7 @@ class UtilityTest {
         assertFalse(Utility.validatedSignUpInput("Lukas  Gustavson", "1210134508"));
         assertFalse(Utility.validatedSignUpInput("mr ande#sson", "0611301234"));
         assertFalse(Utility.validatedSignUpInput("Lukas", "1210134508"));
+        assertFalse(Utility.validatedSignUpInput("Lukas ", "1210134508"));
         assertFalse(Utility.validatedSignUpInput("Lukas Gregorson", "1213134508")); //invalid month
         assertFalse(Utility.validatedSignUpInput("Lukas Gregorson", "1202304508")); //Invalid day
         assertFalse(Utility.validatedSignUpInput("mr. andersson", "0611301234"));
@@ -117,13 +118,14 @@ class UtilityTest {
         assertTrue(Utility.validatedSearchInput("Daniel Hughes"));
         assertTrue(Utility.validatedSearchInput("HuGH GraNt"));
         assertTrue(Utility.validatedSearchInput("melissa mcdonald"));
-        assertTrue(Utility.validatedSearchInput("1212348989"));
         assertTrue(Utility.validatedSearchInput("8910121212"));
 
+        assertFalse(Utility.validatedSearchInput("1212348989")); //Incorrect day of the month "34"
         assertFalse(Utility.validatedSearchInput("89101212127"));
         assertFalse(Utility.validatedSearchInput("891012 1212"));
         assertFalse(Utility.validatedSearchInput("891012-1212"));
         assertFalse(Utility.validatedSearchInput("Daniel  Hughes"));
+        assertFalse(Utility.validatedSearchInput("Daniel "));
         assertFalse(Utility.validatedSearchInput("Daniel 1212128989"));
     }
 }

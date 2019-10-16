@@ -192,11 +192,18 @@ public class Utility {
         boolean isCorrectNameFormat = false;
         boolean isCorrectPersonalIDFormat = false;
 
-        if (isLettersAndSpacesOnly(searchInput) && numberOfSpaces(searchInput) == 1)
+        if (isLettersAndSpacesOnly(searchInput) && numberOfSpaces(searchInput) == 1 && searchInput.substring(searchInput.indexOf(' ')+1).length() != 0)
             isCorrectNameFormat = true;
 
-        if (isDigitsOnly(searchInput) && searchInput.length() == 10)
-            isCorrectPersonalIDFormat = true;
+        if (isDigitsOnly(searchInput) && searchInput.length() == 10){
+            String date = "20" + searchInput.substring(0,2) + '-' + searchInput.substring(2,4) + '-' + searchInput.substring(4,6);
+            try {
+                LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+                isCorrectPersonalIDFormat = true;
+            } catch (DateTimeParseException e) {
+                e.printStackTrace();
+            }
+        }
 
 
         if (isCorrectNameFormat || isCorrectPersonalIDFormat)
@@ -211,7 +218,7 @@ public class Utility {
         boolean isCorrectNameFormat = false;
         boolean isCorrectPersonalIDFormat = false;
 
-        if (isLettersAndSpacesOnly(name) && numberOfSpaces(name) == 1)
+        if (isLettersAndSpacesOnly(name) && numberOfSpaces(name) == 1 && name.substring(name.indexOf(' ')+1).length() != 0)
             isCorrectNameFormat = true;
 
         if (isDigitsOnly(personalID) && personalID.length() == 10){
