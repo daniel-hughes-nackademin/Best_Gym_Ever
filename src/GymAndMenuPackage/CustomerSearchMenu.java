@@ -16,19 +16,23 @@ class CustomerSearchMenu {
         //Update the list, create list if empty
         bestGymEver.setCustomerList(Utility.updateCustomerListFromFile(bestGymEver));
 
-        while (true) {
-            String searchInput = showInputDialog(windowMain, "Skriv in namn (Förnamn Efternamn)\n" +
+       String searchInput = null;
+       boolean isCorrectInput = false;
+
+        while (!isCorrectInput) {
+            searchInput = showInputDialog(windowMain, "Skriv in namn (Förnamn Efternamn)\n" +
                                     "eller personnummer (ååmmddnnnn):", dialogTitle, PLAIN_MESSAGE);
             if (searchInput == null) {
                 MainMenu.mainMenu(bestGymEver);
-                break;
+                return;
             }
                 searchInput = searchInput.trim();
 
             //Verifying searchInput to correct format
-            if (!Utility.validatedSearchInput(searchInput)){
+            if (Utility.validatedSearchInput(searchInput))
+                isCorrectInput = true;
+            else
                 showMessageDialog(windowMain, "Felaktigt Format!", dialogTitle, WARNING_MESSAGE);
-                continue;
             }
 
             Customer customer = Utility.getCustomerFromList(bestGymEver.getCustomerList(), searchInput);
@@ -37,10 +41,8 @@ class CustomerSearchMenu {
             } else {
                 showMessageDialog(windowMain, "Personen finns i registret:\n" + customer, dialogTitle, INFORMATION_MESSAGE);
                 runCustomerMenu(bestGymEver, customer);
-                break;
             }
         }
-    }
 
     private static void runCustomerMenu(BestGymEver bestGymEver, Customer customer) {
         if (customer.isActiveMember()) {
