@@ -42,7 +42,7 @@ public class Window extends JFrame {
         String arrowUp = "\u2191";
         String arrowDown = "\u2193";
         JButton reverseListButton = new JButton(arrowDown);
-        reverseListButton.setFont(new Font("Courier New", Font.BOLD, 24));
+        reverseListButton.setFont(new Font("Courier New", Font.BOLD, 26));
         reverseListButton.addActionListener(e -> {
             if (reverseListButton.getText().equals(arrowDown)){
                 reverseListButton.setText(arrowUp);
