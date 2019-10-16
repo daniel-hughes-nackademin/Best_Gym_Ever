@@ -5,7 +5,10 @@ import GymAndMenuPackage.BestGymEver;
 import GymAndMenuPackage.MainMenu;
 
 import javax.swing.*;
+import javax.swing.plaf.ButtonUI;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,6 +37,7 @@ public class Window extends JFrame {
     }
 
     public void initializeRegistryMenu(){
+
         //Arrow button to change order of the list
         String arrowUp = "\u2191";
         String arrowDown = "\u2193";
@@ -70,7 +74,7 @@ public class Window extends JFrame {
         //Adding label over buttons
         JLabel buttonHeader = new JLabel("Sortera Efter:", JLabel.CENTER);
         buttonHeader.setFont(new Font("Courier New", Font.BOLD, 14));
-        buttonHeader.setForeground(Color.WHITE);
+        //buttonHeader.setForeground(Color.WHITE);
         gridPanel.add(buttonHeader);
 
         //Empty label for formatting the buttons to the correct positions
@@ -95,7 +99,6 @@ public class Window extends JFrame {
        JButton lastNameButton = new JButton("Efternamn");
         lastNameButton.addActionListener(e -> {
             jLayeredPane.remove(scrollableTextWindow);
-
             bestGymEver.setCustomerList(Utility.getCustomerListFromFile(bestGymEver.getPathUpdatedCustomers()));
             List<Customer> lastNameList = bestGymEver.getCustomerList();
              //Sort alphabetically by last name, then first name
