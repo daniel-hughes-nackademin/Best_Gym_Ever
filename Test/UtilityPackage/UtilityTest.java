@@ -51,6 +51,7 @@ class UtilityTest {
         assertTrue(Utility.isLettersAndSpacesOnly("Daniel Hughes"));
         assertTrue(Utility.isLettersAndSpacesOnly("abcdefghijklmnop"));
         assertTrue(Utility.isLettersAndSpacesOnly("sgskajgblbkjIUASBDjk askdjk kAJSDKJ akjfgkajb kajUIPPWNasg aksdkajsd  askdjkJA kafg"));
+
         assertFalse(Utility.isLettersAndSpacesOnly("sgskajgblbkjIUASBDj9 askdjk kAJSDKJ akjfgkajb kajUIPPWNasg aksdkajsd  askdjkJA kafg"));
         assertFalse(Utility.isLettersAndSpacesOnly(null));
         assertFalse(Utility.isLettersAndSpacesOnly("3 is a number"));
